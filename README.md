@@ -20,8 +20,20 @@ python -m spacy download en
 Note: Python 3.6 is required to run our code. 
 
 
+## Preprocessing (Optional Step)
+The codes in preprocessing folder are used to prepare the annotations files which store features path of each surgical image and corresponding caption. This step is optional, you can skip it and directly download the annotation folder according to the next step.
+
+We split the train / val dataset for in-domain in CaptionCollection.py, and for out-of-domain in DACaptionCollection.py. You need to modify the dir_root_gt properly, switch between the two different seq_set and change the output file name correspondingly to get train dataset files and val dataset files. 
+
+For each surgical image, we create a .xml file which stores the caption, coordinates of bounding boxes. You can find xml folders from https://drive.google.com/drive/folders/1aEtbM1l0kDX6TiN1WrynaLesEfDtHmqT?usp=sharing  CaptionCollection.py and DACaptionCollection.py read these .xml files and collect all captions and corresponding feature path into .json file.
+
+
+Run `python Preprocessing/CaptionCollection.py` to get the train / val annotations files for in-domain.
+
+Run `python Preprocessing/DACaptionCollection.py` to get the train / val annotations files for out-of-domain.
+
 ## Data preparation
-To run the code, annotations folder and features folder for the dataset are needed. Please download the annotations folder from (https://drive.google.com/drive/folders/1cR5Wt_mKqn4qF45-hTnKzhG97pQL7ttU?usp=sharing) and download the features folder from (https://drive.google.com/drive/folders/1aEtbM1l0kDX6TiN1WrynaLesEfDtHmqT?usp=sharing)
+To run the code, annotations folder and features folder for the dataset are needed. Please download the annotations folder from https://drive.google.com/drive/folders/1cR5Wt_mKqn4qF45-hTnKzhG97pQL7ttU?usp=sharing and download the features folder from https://drive.google.com/drive/folders/1aEtbM1l0kDX6TiN1WrynaLesEfDtHmqT?usp=sharing
 
 
 ## Evaluation
@@ -41,7 +53,7 @@ Run `python val_base.py --exp_name m2_transformer --batch_size 50 --m 40 --head 
 [saved_best_checkpoints/3_DA_saved_models/one_shot/Base_GRL_LS/m2_transformer_best.pth]
 [saved_best_checkpoints/3_DA_saved_models/few_shot/Base_GRL_LS/m2_transformer_best.pth]
 
-from (https://drive.google.com/drive/folders/12Gckx3fDW5ekFxHKpWPnSvNz4hvFafN2?usp=sharing).
+from https://drive.google.com/drive/folders/12Gckx3fDW5ekFxHKpWPnSvNz4hvFafN2?usp=sharing
 
 Then change the load path of the pretrained model to the above path accordingly in val_base.py.
 
@@ -56,7 +68,7 @@ Run `python val_base.py --exp_name m2_transformer --batch_size 5 --m 40 --head 8
 [saved_best_checkpoints/3_DA_saved_models/one_shot/Base/m2_transformer_best.pth]
 [saved_best_checkpoints/3_DA_saved_models/few_shot/Base/m2_transformer_best.pth]
 
-from (https://drive.google.com/drive/folders/12Gckx3fDW5ekFxHKpWPnSvNz4hvFafN2?usp=sharing)
+from https://drive.google.com/drive/folders/12Gckx3fDW5ekFxHKpWPnSvNz4hvFafN2?usp=sharing
 
 Then do change the load path in in val_base.py and run the same commands just like 3)
 
