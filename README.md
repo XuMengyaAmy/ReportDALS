@@ -1,8 +1,8 @@
 # ReportDALS
-This repository contains the reference code for the paper _[Learning Domain Adaptation with Model Calibration for Surgical Report Generation in Robotic Surgery] 
+This repository contains the reference code for the paper "Learning Domain Adaptation with Model Calibration for Surgical Report Generation in Robotic Surgery"
 
 <p align="center">
-  <img src="Figures/Architecture.png" alt="Architecture" width="320"/>
+  <img src="Figures/Architecture.png" alt="Architecture" width="600"/>
 </p>
 
 ## Environment setup
@@ -31,7 +31,7 @@ Run `python val_ours.py --exp_name m2_transformer --batch_size 50 --m 40 --head 
 
 You will get the validation results on In-domain (MICCAI) dataset and UDA (unsupervised domain adapatation) results on Out-of-domain (SGH NUH) dataset. 
 
-2) To reproduce the results of the base model (M² Transformer), download the pretrained model file [saved_best_checkpoints/MICCAI_SGH_Without_LS/ResNet/m2_transformer_best.pth] which can be downloaded from (https://drive.google.com/drive/folders/12Gckx3fDW5ekFxHKpWPnSvNz4hvFafN2?usp=sharing)
+2) To reproduce the results of the base model (M² Transformer), download the pretrained model file [saved_best_checkpoints/MICCAI_SGH_Without_LS/ResNet/m2_transformer_best.pth](https://drive.google.com/drive/folders/12Gckx3fDW5ekFxHKpWPnSvNz4hvFafN2?usp=sharing)
 
 
 Run `python val_base.py --exp_name m2_transformer --batch_size 50 --m 40 --head 8 --warmup 10000 --features_path /media/mmlab/data_2/mengya/instruments18_caption/ --annotation_folder annotations/annotations_resnet`
@@ -76,7 +76,7 @@ You can also use the following arguments:
 
 2) Run `python train_base.py --exp_name m2_transformer --batch_size 50 --m 40 --head 8 --warmup 10000 --features_path /path/to/features --annotation_folder annotations/annotations_resnet` to reproduce the results from the base model (M² Transformer).
 
-3) Fine-tune the pretrained our model[saved_best_checkpoints/4_save_models_oldfeatures_baseGRLLS/m2_transformer_best.pth] which can be downloaded from (https://drive.google.com/drive/folders/12Gckx3fDW5ekFxHKpWPnSvNz4hvFafN2?usp=sharing) on Out-of-domain in Zero-shot, One-shot, Few-shot manners,
+3) Fine-tune the pretrained our model[saved_best_checkpoints/4_save_models_oldfeatures_baseGRLLS/m2_transformer_best.pth](https://drive.google.com/drive/folders/12Gckx3fDW5ekFxHKpWPnSvNz4hvFafN2?usp=sharing) on Out-of-domain in Zero-shot, One-shot, Few-shot manners,
 
 Please change the load path of the pretrained model to 'saved_best_checkpoints/4_save_models_oldfeatures_baseGRLLS/m2_transformer_best.pth' in each DA_xxx_shot.py firstly
 
@@ -87,7 +87,7 @@ Run ` python DA_one_shot.py --exp_name m2_transformer --batch_size 5 --m 40 --he
 Run ` python DA_few_shot.py --exp_name m2_transformer --batch_size 5 --m 40 --head 8 --warmup 10000 --features_path /path/to/features/instruments18_caption/DomainAdaptation/ --annotation_folder annotations/annotations_DA_few_shot` 
  to reproduce the results from our model. 
 
-4) Fine-tune the pretrained base model[saved_best_checkpoints/MICCAI_SGH_Without_LS/ResNet/m2_transformer_best.pth] whihc can be downloaded from (https://drive.google.com/drive/folders/12Gckx3fDW5ekFxHKpWPnSvNz4hvFafN2?usp=sharing) on Out-of-domain in Zero-shot, One-shot, Few-shot manners, please change the load path of the pretrained model to 'saved_best_checkpoints/MICCAI_SGH_Without_LS/ResNet/m2_transformer_best.pth' in each DA_xxx_shot.py firstly and run the same commands as 3) to reproduce the results from base model.
+4) Fine-tune the pretrained base model[saved_best_checkpoints/MICCAI_SGH_Without_LS/ResNet/m2_transformer_best.pth](https://drive.google.com/drive/folders/12Gckx3fDW5ekFxHKpWPnSvNz4hvFafN2?usp=sharing) on Out-of-domain in Zero-shot, One-shot, Few-shot manners, please change the load path of the pretrained model to 'saved_best_checkpoints/MICCAI_SGH_Without_LS/ResNet/m2_transformer_best.pth' in each DA_xxx_shot.py firstly and run the same commands as 3) to reproduce the results from base model.
 
 
 You can also use the following arguments:
@@ -110,7 +110,7 @@ You can also use the following arguments:
 
 
 <p align="center">
-  <img src="Figures/ResultsVisualization.png" alt="Architecture" width="320"/>
+  <img src="Figures/ResultsVisualization.png" alt="Architecture" width="600"/>
 </p>
 
 
