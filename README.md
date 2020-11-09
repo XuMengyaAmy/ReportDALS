@@ -34,7 +34,7 @@ You will get the validation results on In-domain (MICCAI) dataset and UDA (unsup
 2) To reproduce the results of the base model (M² Transformer), download the pretrained model file [saved_best_checkpoints/MICCAI_SGH_Without_LS/ResNet/m2_transformer_best.pth](https://drive.google.com/drive/folders/12Gckx3fDW5ekFxHKpWPnSvNz4hvFafN2?usp=sharing)
 
 
-Run `python val_base.py --exp_name m2_transformer --batch_size 50 --m 40 --head 8 --warmup 10000 --features_path /media/mmlab/data_2/mengya/instruments18_caption/ --annotation_folder annotations/annotations_resnet`
+Run `python val_base.py --exp_name m2_transformer --batch_size 50 --m 40 --head 8 --warmup 10000 --features_path /path/to/features/instruments18_caption/ --annotation_folder annotations/annotations_resnet`
 
 3) To reproduce the Zero-shot, One-shot, Few-shot results on Out-of-domain with our model, download the pretrained our model files
 [saved_best_checkpoints/3_DA_saved_models/zero_shot/Base_GRL_LS/m2_transformer_best.pth]
@@ -78,7 +78,7 @@ You can also use the following arguments:
 1) Run `python train_ours.py --exp_name m2_transformer --batch_size 50 --m 40 --head 8 --warmup 10000 --features_path /path/to/features/instruments18_caption/ --annotation_folder annotations/annotations_resnet --features_path_DA /path/to/features/instruments18_caption/DomainAdaptation/ --annotation_folder_DA annotations/annotations_DA` to reproduce the results from our model.
 
 
-2) Run `python train_base.py --exp_name m2_transformer --batch_size 50 --m 40 --head 8 --warmup 10000 --features_path /path/to/features --annotation_folder annotations/annotations_resnet` to reproduce the results from the base model (M² Transformer).
+2) Run `python train_base.py --exp_name m2_transformer --batch_size 50 --m 40 --head 8 --warmup 10000 --features_path /path/to/features/instruments18_caption/ --annotation_folder annotations/annotations_resnet` to reproduce the results from the base model (M² Transformer).
 
 3) Fine-tune the pretrained our model [saved_best_checkpoints/4_save_models_oldfeatures_baseGRLLS/m2_transformer_best.pth](https://drive.google.com/drive/folders/12Gckx3fDW5ekFxHKpWPnSvNz4hvFafN2?usp=sharing) on Out-of-domain in Zero-shot, One-shot, Few-shot manners,
 
