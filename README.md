@@ -23,9 +23,9 @@ Note: Python 3.6 is required to run our code.
 ## Preprocessing (Optional Step)
 The codes in preprocessing folder are used to prepare the annotations files which store features path of each surgical image and corresponding caption. This step is optional, you can skip it and directly download the annotation folder according to the next step.
 
-We split the train / val dataset for in-domain in CaptionCollection.py, and for out-of-domain in DACaptionCollection.py. You need to modify the dir_root_gt properly, switch between the two different seq_set and change the output file name correspondingly to get train dataset files and val dataset files. 
+We split the train / val dataset for In-domain dataset (MICCAI EndoVisSub2018-RoboticSceneSegmentation)(https://endovissub2018-roboticscenesegmentation.grand-challenge.org/Data/) in CaptionCollection.py, and for Out-of-domain dataset (SGH+NUH Transoral robotic surgery) in DACaptionCollection.py. You need to modify the dir_root_gt properly, switch between the two different seq_set and change the output file name correspondingly to get train dataset files and val dataset files. 
 
-For each surgical image, we create a .xml file which stores the caption and coordinates of bounding boxes. You can find xml folders from https://drive.google.com/drive/folders/1aEtbM1l0kDX6TiN1WrynaLesEfDtHmqT?usp=sharing  CaptionCollection.py and DACaptionCollection.py read these .xml files and collect all captions and corresponding feature path into .json file.
+For each surgical image, we create a .xml file which stores the caption and coordinates of bounding boxes. You can find xml folders from https://drive.google.com/file/d/1b9OGl8aqyzeOua6kCjCln9yvPZ3OSX8f/view?usp=sharing  CaptionCollection.py and DACaptionCollection.py read these .xml files and collect all captions and corresponding feature path into .json file.
 
 
 Run `python Preprocessing/CaptionCollection.py` to get the train / val annotations files for in-domain.
@@ -33,7 +33,7 @@ Run `python Preprocessing/CaptionCollection.py` to get the train / val annotatio
 Run `python Preprocessing/DACaptionCollection.py` to get the train / val annotations files for out-of-domain.
 
 ## Data preparation
-To run the code, annotations folder and features folder for the dataset are needed. Please download the annotations folder from https://drive.google.com/drive/folders/1cR5Wt_mKqn4qF45-hTnKzhG97pQL7ttU?usp=sharing and download the features folder from https://drive.google.com/drive/folders/1aEtbM1l0kDX6TiN1WrynaLesEfDtHmqT?usp=sharing
+To run the code, annotations folder and features folder for the dataset are needed. Please download the annotations folder from https://drive.google.com/drive/folders/1cR5Wt_mKqn4qF45-hTnKzhG97pQL7ttU?usp=sharing and download the features folder from https://drive.google.com/file/d/1b9OGl8aqyzeOua6kCjCln9yvPZ3OSX8f/view?usp=sharing
 
 
 ## Evaluation
