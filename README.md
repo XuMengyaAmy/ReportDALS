@@ -33,7 +33,9 @@ Run `python Preprocessing/CaptionCollection.py` to get the train / val annotatio
 Run `python Preprocessing/DACaptionCollection.py` to get the train / val annotations files for out-of-domain.
 
 ## Data preparation
-To run the code, annotations folder and features folder for the dataset are needed. Please download the annotations folder from https://drive.google.com/drive/folders/1cR5Wt_mKqn4qF45-hTnKzhG97pQL7ttU?usp=sharing and download the In-domain and Out-of-domain features folder from https://drive.google.com/file/d/1Vt95T_lLg_IhmttNP51B58DJ8iF3FP84/view?usp=sharing and https://drive.google.com/file/d/1bNZZSmX5CXxngazBpPdE9MVb7hF2RDeU/view?usp=sharing respectively.
+To run the code, annotations folder and features folder for the dataset are needed. 
+Download the annotations folder from https://drive.google.com/drive/folders/1cR5Wt_mKqn4qF45-hTnKzhG97pQL7ttU?usp=sharing 
+Download the In-domain and Out-of-domain features folder from https://drive.google.com/file/d/1Vt95T_lLg_IhmttNP51B58DJ8iF3FP84/view?usp=sharing and https://drive.google.com/file/d/1bNZZSmX5CXxngazBpPdE9MVb7hF2RDeU/view?usp=sharing respectively and extract them.
 
 
 ## Evaluation
