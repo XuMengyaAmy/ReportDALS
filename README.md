@@ -57,11 +57,10 @@ from https://drive.google.com/drive/folders/12Gckx3fDW5ekFxHKpWPnSvNz4hvFafN2?us
 
 Then change the load path of the pretrained model to the above path accordingly in val_base.py.
 
-Run `python val_zero_shot.py --exp_name m2_transformer --batch_size 1 --m 40 --head 8 --warmup 10000 --features_path /path/to/features/instruments18_caption/DomainAdaptation/ --annotation_folder annotations/annotations_DA_zero_shot`
+Run `python val_base.py --exp_name m2_transformer --batch_size 5 --m 40 --head 8 --warmup 10000 --features_path /path/to/features/instruments18_caption/DomainAdaptation/ --annotation_folder annotations/annotations_DA_xxx_shot` 
 
-Run `python val_base.py --exp_name m2_transformer --batch_size 5 --m 40 --head 8 --warmup 10000 --features_path /path/to/features/instruments18_caption/DomainAdaptation/ --annotation_folder annotations/annotations_DA_one_shot`
+xxx = {zero, one, few}. If xxx = zero, please change "--batch_size 5" to "--batch_size 1" in the command at the same time.
 
-Run `python val_base.py --exp_name m2_transformer --batch_size 5 --m 40 --head 8 --warmup 10000 --features_path /path/to/features/instruments18_caption/DomainAdaptation/ --annotation_folder annotations/annotations_DA_few_shot`
 
 4) To reproduce the Zero-shot, One-shot, Few-shot results on Out-of-domain with base model, download the pretrained base model files
 [saved_best_checkpoints/3_DA_saved_models/zero_shot/Base/m2_transformer_best.pth]
@@ -71,19 +70,6 @@ Run `python val_base.py --exp_name m2_transformer --batch_size 5 --m 40 --head 8
 from https://drive.google.com/drive/folders/12Gckx3fDW5ekFxHKpWPnSvNz4hvFafN2?usp=sharing
 
 Then do change the load path in in val_base.py and run the same commands just like 3)
-
-
-
-Explanation of arguments:
-
-| Argument | Possible values |
-|------|------|
-| `--batch_size` | Batch size (default: 10) |
-| `--workers` | Number of workers (default: 0) |
-| `--features_path` | Path to detection features |
-| `--annotation_folder` | Path to folder with annotations |
-
-
 
 
 ## Training procedure
@@ -96,12 +82,9 @@ Explanation of arguments:
 
 Please change the load path of the pretrained model to 'saved_best_checkpoints/4_save_models_oldfeatures_baseGRLLS/m2_transformer_best.pth' in each DA_xxx_shot.py firstly
 
-Run ` python DA_zero_shot.py --exp_name m2_transformer --batch_size 1 --m 40 --head 8 --warmup 10000 --features_path /path/to/features/instruments18_caption/DomainAdaptation/ --annotation_folder annotations/annotations_DA_zero_shot` 
+Run ` python DA.py --exp_name m2_transformer --batch_size 5 --m 40 --head 8 --warmup 10000 --features_path /path/to/features/instruments18_caption/DomainAdaptation/ --annotation_folder annotations/annotations_DA_xxx_shot`  to reproduce the results from our model. 
 
-Run ` python DA_one_shot.py --exp_name m2_transformer --batch_size 5 --m 40 --head 8 --warmup 10000 --features_path /path/to/features/instruments18_caption/DomainAdaptation/ --annotation_folder annotations/annotations_DA_one_shot` 
-
-Run ` python DA_few_shot.py --exp_name m2_transformer --batch_size 5 --m 40 --head 8 --warmup 10000 --features_path /path/to/features/instruments18_caption/DomainAdaptation/ --annotation_folder annotations/annotations_DA_few_shot` 
- to reproduce the results from our model. 
+xxx = {zero, one, few}. If xxx = zero, please change "--batch_size 5" to "--batch_size 1" in the command at the same time.
 
 4) Fine-tune the pretrained base model [saved_best_checkpoints/MICCAI_SGH_Without_LS/ResNet/m2_transformer_best.pth](https://drive.google.com/drive/folders/12Gckx3fDW5ekFxHKpWPnSvNz4hvFafN2?usp=sharing) on Out-of-domain in Zero-shot, One-shot, Few-shot manners, please change the load path of the pretrained model to 'saved_best_checkpoints/MICCAI_SGH_Without_LS/ResNet/m2_transformer_best.pth' in each DA_xxx_shot.py firstly and run the same commands as 3) to reproduce the results from base model.
 

@@ -126,7 +126,10 @@ if __name__ == '__main__':
     print("Epoch %d" % data['epoch'])  
     print(data['best_cider'])
 
-    dict_dataloader_val = DataLoader(dict_dataset_val, batch_size=args.batch_size // 5)
+    if (args.annotation_folder == 'annotations/annotations_DA_zero_shot'):
+        dict_dataloader_val = DataLoader(dict_dataset_val, batch_size=args.batch_size)  # For zero shot DA
+    else:
+        dict_dataloader_val = DataLoader(dict_dataset_val, batch_size=args.batch_size // 5)
 
     
     # Validation scores

@@ -207,18 +207,19 @@ if __name__ == '__main__':
         return (model.d_model ** -.5) * min(s ** -.5, s * warm_up ** -1.5)
 
 
-    # Initial conditions
+    # Load the pretrained model
     pretrained_params = torch.load('saved_best_checkpoints/4_save_models_oldfeatures_baseGRLLS/m2_transformer_best.pth')
     # pretrained_params = torch.load('saved_best_checkpoints/MICCAI_SGH_Without_LS/ResNet/m2_transformer_best.pth')
     model.load_state_dict(pretrained_params['state_dict'], strict = False)
     print("Epoch %d" % pretrained_params['epoch'])  
     print(pretrained_params['best_cider'])
 
+    # Initial conditions
     optim = Adam(model.parameters(), lr=1, betas=(0.9, 0.98))
     scheduler = LambdaLR(optim, lambda_lr)
 
     loss_fn = NLLLoss(ignore_index=text_field.vocab.stoi['<pad>'])
-    loss_ls_v2 = CELossWithLS(classes=len(text_field.vocab), smoothing=0.0, gamma=0.0, isCos=False, ignore_index=text_field.vocab.stoi['<pad>']) # classes = 45 / 49
+    loss_ls_v2 = CELossWithLS(classes=len(text_field.vocab), smoothing=0.0, gamma=0.0, isCos=False, ignore_index=text_field.vocab.stoi['<pad>']) 
     use_rl = False
     best_cider = .0
     best_bleu = .0
@@ -236,12 +237,17 @@ if __name__ == '__main__':
 
         dataloader_val = DataLoader(val_dataset, batch_size=args.batch_size, shuffle=False, num_workers=args.workers)
         
-        dict_dataloader_train = DataLoader(dict_dataset_train, batch_size=args.batch_size // 5, shuffle=True,
-                                           num_workers=args.workers)
-        dict_dataloader_val = DataLoader(dict_dataset_val, batch_size=args.batch_size // 5)
+        
+        if (args.annotation_folder == 'annotations/annotations_DA_few_shot') or (args.annotation_folder == 'annotations/annotations_DA_one_shot'):
+            dict_dataloader_train = DataLoader(dict_dataset_train, batch_size=args.batch_size // 5, shuffle=True,
+                                            num_workers=args.workers)
+            dict_dataloader_val = DataLoader(dict_dataset_val, batch_size=args.batch_size // 5)
+        elif (args.annotation_folder == 'annotations/annotations_DA_zero_shot'):
+            dict_dataloader_train = DataLoader(dict_dataset_train, batch_size=args.batch_size, shuffle=True,
+                                            num_workers=args.workers)
+            dict_dataloader_val = DataLoader(dict_dataset_val, batch_size=args.batch_size)
        
 
-    
         # train model with a word-level cross-entropy loss(xe) 
         if not use_rl:
             train_loss = train_xe(model, dataloader_train, optim, text_field)
