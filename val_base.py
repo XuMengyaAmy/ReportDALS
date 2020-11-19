@@ -10,7 +10,7 @@ from torch.optim import Adam
 from torch.optim.lr_scheduler import LambdaLR
 from torch.nn import NLLLoss
 from tqdm import tqdm
-from torch.utils.tensorboard import SummaryWriter
+
 import argparse, os, pickle
 import numpy as np
 import itertools
@@ -81,8 +81,6 @@ if __name__ == '__main__':
     print(args)
 
     print('Validation')
-
-    writer = SummaryWriter(log_dir=os.path.join(args.logs_folder, args.exp_name))
 
     # Pipeline for image regions
     image_field = ImageDetectionsField(detections_path=args.features_path, max_detections=6, load_in_tmp=False)  
