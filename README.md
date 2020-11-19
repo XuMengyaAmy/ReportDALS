@@ -101,7 +101,6 @@ Explanation of arguments:
 | `--warmup` | Warmup value for learning rate scheduling (default: 10000) |
 | `--features_path` | Path to detection features |
 | `--annotation_folder` | Path to folder with annotations |
-| `--logs_folder` | Path folder for tensorboard logs (default: "tensorboard_logs")|
 
 (In our case, /path/to/features/ is /media/mmlab/data_2/mengya/)
 

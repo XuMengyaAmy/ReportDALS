@@ -11,7 +11,7 @@ from torch.optim.lr_scheduler import LambdaLR
 from torch.nn import NLLLoss
 import torch.nn.functional as F
 from tqdm import tqdm
-from torch.utils.tensorboard import SummaryWriter
+
 import argparse, os, pickle
 import numpy as np
 import itertools
@@ -142,13 +142,10 @@ if __name__ == '__main__':
     parser.add_argument('--warmup', type=int, default=10000)
     parser.add_argument('--features_path', type=str)
     parser.add_argument('--annotation_folder', type=str)
-    parser.add_argument('--logs_folder', type=str, default='tensorboard_logs')
     args = parser.parse_args()
     print(args)
 
     print('Training')
-
-    writer = SummaryWriter(log_dir=os.path.join(args.logs_folder, args.exp_name))
 
     # Pipeline for image regions
     image_field = ImageDetectionsField(detections_path=args.features_path, max_detections=6, load_in_tmp=False)  
@@ -251,23 +248,16 @@ if __name__ == '__main__':
         # train model with a word-level cross-entropy loss(xe) 
         if not use_rl:
             train_loss = train_xe(model, dataloader_train, optim, text_field)
-            writer.add_scalar('data/train_loss', train_loss, e) 
+        
 
         # Validation loss
         val_loss = evaluate_loss(model, dataloader_val, loss_fn, text_field)
-        writer.add_scalar('data/val_loss', val_loss, e)
+
 
         # Validation scores
         scores = evaluate_metrics(model, dict_dataloader_val, text_field)  
-
-
         val_cider = scores['CIDEr']
-        writer.add_scalar('data/val_cider', val_cider, e)
-        writer.add_scalar('data/val_bleu1', scores['BLEU'][0], e)
-        writer.add_scalar('data/val_bleu4', scores['BLEU'][3], e)
-        writer.add_scalar('data/val_meteor', scores['METEOR'], e)
-        writer.add_scalar('data/val_rouge', scores['ROUGE'], e)
-
+     
 
         # Prepare for next epoch
         best = False

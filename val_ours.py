@@ -76,7 +76,6 @@ if __name__ == '__main__':
     parser.add_argument('--features_path_DA', type=str)
     parser.add_argument('--annotation_folder', type=str)
     parser.add_argument('--annotation_folder_DA', type=str)
-    parser.add_argument('--logs_folder', type=str, default='tensorboard_logs')
     args = parser.parse_args()
     print(args)
 
