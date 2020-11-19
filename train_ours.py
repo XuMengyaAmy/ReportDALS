@@ -45,7 +45,6 @@ def evaluate_loss(model, dataloader, loss_fn, text_field):
                 captions = captions[:, 1:].contiguous()
                 out = out[:, :-1].contiguous()
                 loss = loss_fn(out.view(-1, len(text_field.vocab)), captions.view(-1))
-                # loss =  loss_ls_v2(out, captions)
                 this_loss = loss.item()
                 running_loss += this_loss
 
