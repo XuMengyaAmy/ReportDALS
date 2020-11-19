@@ -140,15 +140,13 @@ if __name__ == '__main__':
     parser.add_argument('--m', type=int, default=40)   
     parser.add_argument('--head', type=int, default=8)
     parser.add_argument('--warmup', type=int, default=10000)
-    parser.add_argument('--resume_last', action='store_true')
-    parser.add_argument('--resume_best', action='store_true')
     parser.add_argument('--features_path', type=str)
     parser.add_argument('--annotation_folder', type=str)
     parser.add_argument('--logs_folder', type=str, default='tensorboard_logs')
     args = parser.parse_args()
     print(args)
 
-    print('Meshed-Memory Transformer Training')
+    print('Training')
 
     writer = SummaryWriter(log_dir=os.path.join(args.logs_folder, args.exp_name))
 
@@ -224,31 +222,9 @@ if __name__ == '__main__':
     start_epoch = 0
     best_epoch = 0
 
-    if args.resume_last or args.resume_best:
-        if args.resume_last:
-            fname = 'saved_models/%s_last.pth' % args.exp_name
-        else:
-            fname = 'saved_models/%s_best.pth' % args.exp_name
-
-        if os.path.exists(fname):
-            data = torch.load(fname)
-            torch.set_rng_state(data['torch_rng_state'])
-            torch.cuda.set_rng_state(data['cuda_rng_state'])
-            np.random.set_state(data['numpy_rng_state'])
-            random.setstate(data['random_rng_state'])
-            model.load_state_dict(data['state_dict'], strict=False)
-            optim.load_state_dict(data['optimizer'])
-            scheduler.load_state_dict(data['scheduler'])
-            start_epoch = data['epoch'] + 1
-            best_cider = data['best_cider']
-            patience = data['patience']
-            use_rl = data['use_rl']
-            print('Resuming from epoch %d, validation loss %f, and best cider %f' % (
-                data['epoch'], data['val_loss'], data['best_cider']))
+    
 
     print("Training starts")
-
-    
 
     for e in range(start_epoch, start_epoch + 50):  
         dataloader_train = DataLoader(train_dataset, batch_size=args.batch_size, shuffle=True, num_workers=args.workers,

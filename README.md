@@ -74,7 +74,7 @@ Then do change the load path in in val_base.py and run the same commands just li
 
 
 
-You can also use the following arguments:
+Explanation of arguments:
 
 | Argument | Possible values |
 |------|------|
@@ -106,7 +106,7 @@ Run ` python DA_few_shot.py --exp_name m2_transformer --batch_size 5 --m 40 --he
 4) Fine-tune the pretrained base model [saved_best_checkpoints/MICCAI_SGH_Without_LS/ResNet/m2_transformer_best.pth](https://drive.google.com/drive/folders/12Gckx3fDW5ekFxHKpWPnSvNz4hvFafN2?usp=sharing) on Out-of-domain in Zero-shot, One-shot, Few-shot manners, please change the load path of the pretrained model to 'saved_best_checkpoints/MICCAI_SGH_Without_LS/ResNet/m2_transformer_best.pth' in each DA_xxx_shot.py firstly and run the same commands as 3) to reproduce the results from base model.
 
 
-You can also use the following arguments:
+Explanation of arguments:
 
 | Argument | Possible values |
 |------|------|
@@ -116,8 +116,6 @@ You can also use the following arguments:
 | `--m` | Number of memory vectors (default: 40) |
 | `--head` | Number of heads (default: 8) |
 | `--warmup` | Warmup value for learning rate scheduling (default: 10000) |
-| `--resume_last` | If used, the training will be resumed from the last checkpoint. |
-| `--resume_best` | If used, the training will be resumed from the best checkpoint. |
 | `--features_path` | Path to detection features |
 | `--annotation_folder` | Path to folder with annotations |
 | `--logs_folder` | Path folder for tensorboard logs (default: "tensorboard_logs")|

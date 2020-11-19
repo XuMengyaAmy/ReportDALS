@@ -45,6 +45,7 @@ def evaluate_loss(model, dataloader, loss_fn, text_field):
                 captions = captions[:, 1:].contiguous()
                 out = out[:, :-1].contiguous()
                 loss = loss_fn(out.view(-1, len(text_field.vocab)), captions.view(-1))
+                # loss =  loss_ls_v2(out, captions)
                 this_loss = loss.item()
                 running_loss += this_loss
 
@@ -152,8 +153,6 @@ if __name__ == '__main__':
     parser.add_argument('--m', type=int, default=40)   
     parser.add_argument('--head', type=int, default=8)
     parser.add_argument('--warmup', type=int, default=10000)
-    parser.add_argument('--resume_last', action='store_true')
-    parser.add_argument('--resume_best', action='store_true')
     parser.add_argument('--features_path', type=str)
     parser.add_argument('--features_path_DA', type=str)
     parser.add_argument('--annotation_folder', type=str)
@@ -163,7 +162,7 @@ if __name__ == '__main__':
     args = parser.parse_args()
     print(args)
 
-    print('Meshed-Memory Transformer Training')
+    print('Training')
 
     writer = SummaryWriter(log_dir=os.path.join(args.logs_folder, args.exp_name))
 
@@ -227,7 +226,7 @@ if __name__ == '__main__':
     optim = Adam(model.parameters(), lr=1, betas=(0.9, 0.98))
     scheduler = LambdaLR(optim, lambda_lr)
     loss_fn = NLLLoss(ignore_index=text_field.vocab.stoi['<pad>'])
-    loss_ls_v2 = CELossWithLS(classes=len(text_field.vocab), smoothing=0.1, gamma=0.0, isCos=False, ignore_index=text_field.vocab.stoi['<pad>']) # classes = 45 / 49
+    loss_ls_v2 = CELossWithLS(classes=len(text_field.vocab), smoothing=0.1, gamma=0.0, isCos=False, ignore_index=text_field.vocab.stoi['<pad>'])
 
     loss_domain = torch.nn.NLLLoss()
     use_rl = False
@@ -237,31 +236,9 @@ if __name__ == '__main__':
     patience = 0
     start_epoch = 0
 
-    if args.resume_last or args.resume_best:
-        if args.resume_last:
-            fname = 'saved_models/%s_last.pth' % args.exp_name
-        else:
-            fname = 'saved_models/%s_best.pth' % args.exp_name
-
-        if os.path.exists(fname):
-            data = torch.load(fname)
-            torch.set_rng_state(data['torch_rng_state'])
-            torch.cuda.set_rng_state(data['cuda_rng_state'])
-            np.random.set_state(data['numpy_rng_state'])
-            random.setstate(data['random_rng_state'])
-            model.load_state_dict(data['state_dict'], strict=False)
-            optim.load_state_dict(data['optimizer'])
-            scheduler.load_state_dict(data['scheduler'])
-            start_epoch = data['epoch'] + 1
-            best_cider = data['best_cider']
-            patience = data['patience']
-            use_rl = data['use_rl']
-            print('Resuming from epoch %d, validation loss %f, and best cider %f' % (
-                data['epoch'], data['val_loss'], data['best_cider']))
+    
 
     print("Training starts")
-
-    
 
     for e in range(start_epoch, start_epoch + 50):  
         dataloader_train = DataLoader(train_dataset, batch_size=args.batch_size, shuffle=True, num_workers=args.workers, drop_last=True)

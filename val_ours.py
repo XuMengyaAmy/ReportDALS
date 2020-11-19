@@ -72,8 +72,6 @@ if __name__ == '__main__':
     parser.add_argument('--m', type=int, default=40)   
     parser.add_argument('--head', type=int, default=8)
     parser.add_argument('--warmup', type=int, default=10000)
-    parser.add_argument('--resume_last', action='store_true')
-    parser.add_argument('--resume_best', action='store_true')
     parser.add_argument('--features_path', type=str)
     parser.add_argument('--features_path_DA', type=str)
     parser.add_argument('--annotation_folder', type=str)
@@ -82,7 +80,7 @@ if __name__ == '__main__':
     args = parser.parse_args()
     print(args)
 
-    print('Meshed-Memory Transformer Validation')
+    print('Validation')
 
     writer = SummaryWriter(log_dir=os.path.join(args.logs_folder, args.exp_name))
 
