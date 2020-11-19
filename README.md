@@ -33,13 +33,13 @@ Run `python Preprocessing/CaptionCollection.py` to get the train / val annotatio
 Run `python Preprocessing/DACaptionCollection.py` to get the train / val annotations files for out-of-domain.
 
 ## Data preparation
-To run the code, annotations folder and features folder for the dataset are needed. Please download the annotations folder from https://drive.google.com/drive/folders/1cR5Wt_mKqn4qF45-hTnKzhG97pQL7ttU?usp=sharing and download the features folder from https://drive.google.com/file/d/1b9OGl8aqyzeOua6kCjCln9yvPZ3OSX8f/view?usp=sharing
+To run the code, annotations folder and features folder for the dataset are needed. Please download the annotations folder from https://drive.google.com/drive/folders/1cR5Wt_mKqn4qF45-hTnKzhG97pQL7ttU?usp=sharing and download the In-domain and Out-of-domain features folder from https://drive.google.com/file/d/1Vt95T_lLg_IhmttNP51B58DJ8iF3FP84/view?usp=sharing and https://drive.google.com/file/d/1bNZZSmX5CXxngazBpPdE9MVb7hF2RDeU/view?usp=sharing respectively.
 
 
 ## Evaluation
 1) To reproduce the results of our model reported in our paper, download the pretrained model file [saved_best_checkpoints/7_saved_models_final_3outputs/m2_transformer_best.pth](https://drive.google.com/drive/folders/12Gckx3fDW5ekFxHKpWPnSvNz4hvFafN2?usp=sharing) 
 
-Run `python val_ours.py --exp_name m2_transformer --batch_size 50 --m 40 --head 8 --warmup 10000 --features_path /path/to/features/instruments18_caption/ --annotation_folder annotations/annotations_resnet --features_path_DA /path/to/features/instruments18_caption/DomainAdaptation/ --annotation_folder_DA annotations/annotations_DA` 
+Run `python val_ours.py --exp_name m2_transformer --batch_size 50 --m 40 --head 8 --warmup 10000 --features_path /path/to/features/instruments18_caption/ --annotation_folder annotations/annotations_resnet --features_path_DA /path/to/features/DomainAdaptation/ --annotation_folder_DA annotations/annotations_DA` 
 
 You will get the validation results on In-domain (MICCAI) dataset and UDA (unsupervised domain adapatation) results on Out-of-domain (SGH NUH) dataset. 
 
@@ -57,7 +57,7 @@ from https://drive.google.com/drive/folders/12Gckx3fDW5ekFxHKpWPnSvNz4hvFafN2?us
 
 Then change the load path of the pretrained model to the above path accordingly in val_base.py.
 
-Run `python val_base.py --exp_name m2_transformer --batch_size 5 --m 40 --head 8 --warmup 10000 --features_path /path/to/features/instruments18_caption/DomainAdaptation/ --annotation_folder annotations/annotations_DA_xxx_shot` 
+Run `python val_base.py --exp_name m2_transformer --batch_size 5 --m 40 --head 8 --warmup 10000 --features_path /path/to/features/DomainAdaptation/ --annotation_folder annotations/annotations_DA_xxx_shot` 
 
 xxx = {zero, one, few}. If xxx = zero, please change "--batch_size 5" to "--batch_size 1" in the command at the same time.
 
@@ -73,7 +73,7 @@ Then do change the load path in in val_base.py and run the same commands just li
 
 
 ## Training procedure
-1) Run `python train_ours.py --exp_name m2_transformer --batch_size 50 --m 40 --head 8 --warmup 10000 --features_path /path/to/features/instruments18_caption/ --annotation_folder annotations/annotations_resnet --features_path_DA /path/to/features/instruments18_caption/DomainAdaptation/ --annotation_folder_DA annotations/annotations_DA` to reproduce the results from our model.
+1) Run `python train_ours.py --exp_name m2_transformer --batch_size 50 --m 40 --head 8 --warmup 10000 --features_path /path/to/features/instruments18_caption/ --annotation_folder annotations/annotations_resnet --features_path_DA /path/to/features/DomainAdaptation/ --annotation_folder_DA annotations/annotations_DA` to reproduce the results from our model.
 
 
 2) Run `python train_base.py --exp_name m2_transformer --batch_size 50 --m 40 --head 8 --warmup 10000 --features_path /path/to/features/instruments18_caption/ --annotation_folder annotations/annotations_resnet` to reproduce the results from the base model (M² Transformer).
@@ -82,7 +82,7 @@ Then do change the load path in in val_base.py and run the same commands just li
 
 Please change the load path of the pretrained model to 'saved_best_checkpoints/4_save_models_oldfeatures_baseGRLLS/m2_transformer_best.pth' in each DA_xxx_shot.py firstly
 
-Run ` python DA.py --exp_name m2_transformer --batch_size 5 --m 40 --head 8 --warmup 10000 --features_path /path/to/features/instruments18_caption/DomainAdaptation/ --annotation_folder annotations/annotations_DA_xxx_shot`  to reproduce the results from our model. 
+Run ` python DA.py --exp_name m2_transformer --batch_size 5 --m 40 --head 8 --warmup 10000 --features_path /path/to/features/DomainAdaptation/ --annotation_folder annotations/annotations_DA_xxx_shot`  to reproduce the results from our model. 
 
 xxx = {zero, one, few}. If xxx = zero, please change "--batch_size 5" to "--batch_size 1" in the command at the same time.
 
